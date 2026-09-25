@@ -1,0 +1,186 @@
+;==========================================================
+; Catppuccin Mocha Polybar
+;==========================================================
+
+[colors]
+rosewater = #f5e0dc
+flamingo  = #f2cdcd
+pink      = #f5c2e7
+mauve     = #cba6f7
+red       = #f38ba8
+maroon    = #eba0ac
+peach     = #fab387
+yellow    = #f9e2af
+green     = #a6e3a1
+teal      = #94e2d5
+sky       = #89dceb
+sapphire  = #74c7ec
+blue      = #89b4fa
+lavender  = #b4befe
+
+text      = #cdd6f4
+subtext1  = #bac2de
+subtext0  = #a6adc8
+overlay2  = #9399b2
+overlay1  = #7f849c
+overlay0  = #6c7086
+
+surface2  = #585b70
+surface1  = #45475a
+surface0  = #313244
+
+base      = #1e1e2e
+mantle    = #181825
+crust     = #11111b
+
+
+;==========================================================
+; BAR
+;==========================================================
+
+[bar/example]
+width = 100%
+height = 24
+radius = 0
+tray-position = right
+tray-padding = 2
+tray-background = ${colors.base}
+background = ${colors.base}
+foreground = ${colors.text}
+
+line-size = 2
+
+border-size = 0
+border-color = ${colors.base}
+
+padding-left = 1
+padding-right = 1
+
+module-margin-left = 1
+module-margin-right = 1
+
+separator = |
+separator-foreground = ${colors.overlay0}
+
+font-0 = Hack:size=9;2
+
+modules-left = i3
+modules-right = volume date
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+enable-ipc = true
+
+
+;==========================================================
+; I3 WORKSPACES
+;==========================================================
+
+[module/i3]
+type = internal/i3
+
+pin-workspaces = true
+strip-wsnumbers = true
+index-sort = true
+wrapping-scroll = false
+
+enable-click = true
+enable-scroll = false
+
+label-mode = %mode%
+label-mode-padding = 1
+label-mode-background = ${colors.red}
+label-mode-foreground = ${colors.crust}
+
+label-focused = %name%
+label-focused-padding = 1
+
+label-focused-background = ${colors.mauve}
+label-focused-foreground = ${colors.crust}
+
+label-unfocused = %name%
+label-unfocused-padding = 1
+
+label-unfocused-background = ${colors.base}
+label-unfocused-foreground = ${colors.text}
+
+label-visible = %name%
+label-visible-padding = 1
+
+label-visible-background = ${colors.surface2}
+label-visible-foreground = ${colors.text}
+
+label-urgent = %name%
+label-urgent-padding = 1
+
+label-urgent-background = ${colors.red}
+label-urgent-foreground = ${colors.crust}
+
+
+;==========================================================
+; VOLUME
+;==========================================================
+
+[module/volume]
+type = internal/pulseaudio
+
+; Use the default PipeWire/PulseAudio sink
+use-ui-max = true
+
+interval = 1
+
+format-volume = <label-volume>
+format-volume-prefix = "VOL: "
+format-volume-prefix-foreground = ${colors.mauve}
+
+label-volume = %percentage%%
+label-volume-foreground = ${colors.text}
+
+format-muted = <label-muted>
+format-muted-prefix = "VOL: "
+format-muted-prefix-foreground = ${colors.red}
+
+label-muted = muted
+label-muted-foreground = ${colors.red}
+
+; Left click = mute
+click-left = pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+; Right click = mixer
+click-right = pavucontrol
+
+; Scroll = volume
+scroll-up = pactl set-sink-volume @DEFAULT_SINK@ +3%
+scroll-down = pactl set-sink-volume @DEFAULT_SINK@ -3%
+
+; Mouse cursor
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+
+;==========================================================
+; DATE / TIME
+;==========================================================
+
+[module/date]
+type = internal/date
+
+interval = 1
+
+date = %d / %m
+time = %H:%M:%S
+
+label = %date% | %time%
+label-foreground = ${colors.text}
+
+
+;==========================================================
+; SETTINGS
+;==========================================================
+
+[settings]
+screenchange-reload = true
+pseudo-transparency = false
+
+; vim:ft=dosini
